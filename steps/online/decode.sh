@@ -1,16 +1,16 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Copyright 2014  Johns Hopkins University (Author: Daniel Povey)
 # Apache 2.0
 
 # Begin configuration section.
 stage=0
-nj=4
+nj=1
 cmd=run.pl
 max_active=7000
 beam=13.0
 lattice_beam=6.0
-acwt=0.083333 # note: only really affects adaptation and pruning (scoring is on
+acwt=1.0 # note: only really affects adaptation and pruning (scoring is on
               # lattices).
 per_utt=false
 do_endpointing=false
