@@ -67,7 +67,7 @@ fi
 graphdir=$1
 data=$2
 dir=$3
-srcdir=`dirname $dir`; # The model directory is one level up from decoding directory.
+srcdir=models/exp/tdnn_7b_chain_online; # The model directory is one level up from decoding directory.
 sdata=$data/split$nj;
 
 if [ "$online_config" == "" ]; then

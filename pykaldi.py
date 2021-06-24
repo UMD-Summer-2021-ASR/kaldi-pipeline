@@ -9,7 +9,7 @@ class ForcedAligner:
         pass
 
     def align(self,audio:str,transcript:str):
-        process = subprocess.Popen("bash falign/align.sh s3/text/{0}.txt s3/audio/{0}.wav data/lang_chain/ s3/faligned/{0}.out.ctm  s3/faligned/{0}.out_phone.ctm  s3/faligned/{0}.out_transid_seq.txt  s3/faligned/{0}.lpf.txt s3/faligned/{0}.vtt".format(id), shell=True, stdout=subprocess.PIPE)
+        process = subprocess.Popen("bash falign/align.sh {1}/text/{0}.txt s3/audio/{0}.wav data/lang_chain/ s3/faligned/{0}.out.ctm  s3/faligned/{0}.out_phone.ctm  s3/faligned/{0}.out_transid_seq.txt  s3/faligned/{0}.lpf.txt s3/faligned/{0}.vtt".format(id), shell=True, stdout=subprocess.PIPE)
         process_return = process.stdout.read()
         with open("falign.log","w") as f:
             f.write(process_return)
@@ -18,8 +18,9 @@ class SpeechRecgnizer:
     def __init__(self) -> None:
         pass
 
-    def transcribe():
-        pass
+    def transcribe(self,store_path):
+        shelldon.call("steps/online/nnet3/decode.sh --nj 1 models/exp/tdnn_7b_chain_online/graph_pp {0}/cleaned {0}/asr".format(store_path))
+        shelldon.call("lattice-best-path ark:'gunzip -c {0}/asr/lat.1.gz |' 'ark,t:| int2sym.pl -f 2- models/exp/tdnn_7b_chain_online/graph_pp/words.txt > {0}/decoded_text.txt'".format(store_path))
 
 class SpeechDiarization:
     def __init__(self) -> None:
@@ -67,4 +68,5 @@ class Preprocessor:
             
 if __name__ == "__main__":
     # Preprocessor().process_audio("/home/mshivam/quizzr/data","processed_data")
-    SpeechDiarization().diar("processed_data","processed_data/cleaned")
+    # SpeechDiarization().diar("processed_data","processed_data/cleaned")
+    SpeechRecgnizer().transcribe("processed_data")
