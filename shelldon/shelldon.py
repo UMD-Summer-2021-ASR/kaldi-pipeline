@@ -2,7 +2,8 @@
 #!/usr/bin/env python
 
 import os
-import sys
+from re import sub
+import colorama as cr
 import shlex
 import subprocess
 
@@ -14,11 +15,19 @@ class CommandError(Exception):
 
 
 def call(cmd):
+    print(cmd)
     cmd_lines = split_cmd(cmd)
     for line in cmd_lines:
         call_list = shlex.split(line)
         try:
-            subprocess.call(call_list)
+            # cr.init() 
+
+            # print(cr.Fore.GREEN)
+            code = subprocess.call(call_list)
+            # print(cr.Style.RESET_ALL)
+            print(code)
+            if code is not 0:
+                raise subprocess.SubprocessError
 
         except OSError:
             if call_list[0] == 'cd':

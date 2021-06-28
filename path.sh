@@ -4,5 +4,5 @@ export PATH=$PWD/utils/:$KALDI_ROOT/src/bin:$KALDI_ROOT/tools/openfst/bin:$KALDI
 export PATH=$PWD/utils/:$KALDI_ROOT/tools/openfst/bin:$PWD:$KALDI_ROOT/tools/srilm/lm/bin/i686-m64/:$PATH
 [ ! -f $KALDI_ROOT/tools/config/common_path.sh ] && echo >&2 "The standard file $KALDI_ROOT/tools/config/common_path.sh is not present -> Exit!" && exit 1
 . $KALDI_ROOT/tools/config/common_path.sh
-export PATH=$KALDI_ROOT/tools/sctk/bin:$PATH
+export PATH=$KALDI_ROOT/tools/sctk/bin:$PATH:/home/mshivam/srilm/bin/i686-m64
 export LC_ALL=C

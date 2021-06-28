@@ -4,3 +4,5 @@ processed_data/**
 *.tar.**
 models/**
 log/**
+*.zip
+__pycache__/**
